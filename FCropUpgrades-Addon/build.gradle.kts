@@ -11,7 +11,7 @@ description = "Adds more crop upgrades into factionsx."
 dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
     compileOnly("io.papermc:paperlib:1.0.2")
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     compileOnly("com.github.cryptomorin:XSeries:8.1.0")

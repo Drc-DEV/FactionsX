@@ -10,7 +10,7 @@ description = "Allows FactionsUUID Hooks to proxy into factionsx."
 
 dependencies {
     compileOnly(project(":FactionsX"))
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
     compileOnly("io.papermc:paperlib:1.0.2")
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     compileOnly("com.github.cryptomorin:XSeries:7.2.1")

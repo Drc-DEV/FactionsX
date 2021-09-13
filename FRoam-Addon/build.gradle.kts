@@ -9,12 +9,12 @@ plugins {
 dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
     compileOnly("io.papermc:paperlib:1.0.2")
     compileOnly("io.netty:netty-all:4.1.51.Final")
     compileOnly("com.sk89q.worldguard:worldguard-legacy:6.2") // we'll use the oldest implementation cause the packages remain the same, we just need the id
     compileOnly(kotlin("stdlib-jdk8"))
-    compileOnly("com.github.cryptomorin:XSeries:8.1.0")
+    compileOnly("com.github.cryptomorin:XSeries:8.4.0")
     implementation("com.github.officialrarlab:ClassicPlugin:ea4318b412") {
         exclude("org.jetbrains")
         exclude("org.jetbrains.kotlin")

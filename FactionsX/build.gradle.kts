@@ -13,7 +13,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
     implementation(kotlin("stdlib-jdk8"))
     implementation(project(":AddonFramework"))
-    implementation("net.prosavage:BasePlugin:1.9.1") // update when deployed
+    implementation(project(":BasePlugin"))
     implementation("me.rayzr522:jsonmessage:1.2.1")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.github.cryptomorin:XSeries:8.1.0")

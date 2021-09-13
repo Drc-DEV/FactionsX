@@ -11,9 +11,9 @@ dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
     compileOnly("me.clip:placeholderapi:2.10.4")
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
     compileOnly("io.papermc:paperlib:1.0.2")
-    compileOnly("com.github.cryptomorin:XSeries:8.1.0")
+    compileOnly("com.github.cryptomorin:XSeries:8.4.0")
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     compileOnly(kotlin("stdlib-jdk8"))
 }

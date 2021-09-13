@@ -9,8 +9,8 @@ plugins {
 dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
-    compileOnly("com.github.cryptomorin:XSeries:8.1.0")
+    compileOnly(project(":BasePlugin"))
+    compileOnly("com.github.cryptomorin:XSeries:8.4.0")
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     compileOnly(kotlin("stdlib-jdk8"))
 

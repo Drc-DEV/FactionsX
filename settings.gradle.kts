@@ -3,6 +3,7 @@
  */
 
 rootProject.name = "FactionsX-Parent"
+include(":BasePlugin")
 include(":AddonFramework")
 include(":FactionsX")
 include("FactionsUUIDAPIProxy")

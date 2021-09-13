@@ -66,7 +66,7 @@ tasks {
             readme.writeText(
                 "Hi, thanks for reading!\n" +
                         "\n" +
-                        "The FactionsX-${project.version} is a normal minecraft plugin, can goes in the \"/plugins/\" folder.\n" +
+                        "The FactionsX-${project.version} is an open-source minecraft plugin, goes in the \"/plugins/\" folder.\n" +
                         "All jar files in the \"Addons\" folder, go in the \"/plugins/FactionsX/addons/\" folder.\n" +
                         "* F CropUpgrades Addon is 1.13+.\n" +
                         "\n" +
@@ -79,7 +79,7 @@ tasks {
                         "Basic documentation for permissions or commands specific to this build can be found in the \"/plugins/FactionsX/docs\" " +
                         "folder after the first time starting up\n" +
                         "\n" +
-                        "Discord: https://discord.gg/savagelabs\n" +
+                        "GitHub: https://github.com/ProSavage/FactionsX\n" +
                         "Wiki: https://wiki.savagelabs.net"
             )
             zipTo(File("${buildDir}/release/FactionsX-Release-${project.version}.zip"), File(releasePath))
@@ -128,8 +128,6 @@ subprojects {
 
         maven("https://repo.maven.apache.org/maven2")
 
-        maven("https://nexus.savagelabs.net/repository/maven-releases/")
-
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
 
         maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots")
@@ -137,7 +135,7 @@ subprojects {
         maven("https://repo.dmulloy2.net/nexus/repository/public/")
         maven("https://oss.sonatype.org/content/groups/public/")
 
-        maven("http://repo.extendedclip.com/content/repositories/placeholderapi/")
+        maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 
         maven("https://repo.codemc.org/repository/maven-public")
 
@@ -151,8 +149,6 @@ subprojects {
         maven("https://maven.enginehub.org/repo/")
 
         maven("https://jcenter.bintray.com/")
-
-//        maven("https://nexus.savagelabs.net/repository/maven-public/")
 
         maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 

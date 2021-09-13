@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
 }
 
 tasks {

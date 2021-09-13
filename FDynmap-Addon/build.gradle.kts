@@ -12,7 +12,7 @@ repositories {
 dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
-    compileOnly("net.prosavage:BasePlugin:1.7.6")
+    compileOnly(project(":BasePlugin"))
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     implementation("org.jetbrains:annotations:13.0")
     compileOnly("org.dynmap:dynmap:2.0") {
