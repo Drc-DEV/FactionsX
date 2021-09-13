@@ -23,7 +23,7 @@ dependencies {
     implementation("fr.mrmicky:FastParticles:v2.0.0")
     implementation("com.github.MinusKube:SmartInvs:master-SNAPSHOT")
     implementation("com.github.officialrarlab:FastBoard:b6887c9a5f")
-    compileOnly(files("./lib/WorldGuardWrapper-1.0.1.jar"))
+    implementation(files("./lib/WorldGuardWrapper-1.0.1.jar"))
     //implementation("com.github.officialrarlab:WorldGuardWrapper:1.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly("net.ess3:EssentialsX:2.17.2")
