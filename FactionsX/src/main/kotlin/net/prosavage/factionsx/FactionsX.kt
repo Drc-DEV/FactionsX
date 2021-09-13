@@ -3,7 +3,6 @@ package net.prosavage.factionsx
 import fr.minuskube.inv.InventoryManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.oliwer.bossbar.api.BarController
 import me.rarlab.worldguard.WorldGuardLayer
 import me.rarlab.worldguard.helper.Fetcher
 import net.prosavage.baseplugin.SavagePlugin
@@ -59,7 +58,6 @@ class FactionsX : SavagePlugin() {
         lateinit var inventoryManager: InventoryManager
         lateinit var worldGuard: WorldGuardLayer<*>
         var scoreboard: Scoreboard? = null
-        val bossBarController: BarController<Chunk> by lazyOf(BarController(emptyMap(), true))
     }
 
     override fun onLoad() {
@@ -98,7 +96,7 @@ class FactionsX : SavagePlugin() {
             baseCommand = setupCommand()
             baseAdminCommand = setupAdminCommands()
             logColored("Setup factions commands.")
-            registerListeners(DataListener(), PlayerListener(), ChatListener(), MiscListener(), FactionListener, bossBarController)
+            registerListeners(DataListener(), PlayerListener(), ChatListener(), MiscListener(), FactionListener)
             logColored("Registered Factions Listeners.")
             startPositionMonitor()
             logColored("Started Position Monitor")
@@ -124,10 +122,6 @@ class FactionsX : SavagePlugin() {
             startSaveTask()
             logColored("Started autosave task.")
             TimerManager.startMonitoring()
-            // run the boss bar ticking task
-            Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate({
-                bossBarController.cache.forEach { (_, bar) -> bar.tick() }
-            }, 0, 1, TimeUnit.MILLISECONDS)
         }
         logColored("Startup Completed In &6$startupTime&7.")
         logColored("&6================================================")

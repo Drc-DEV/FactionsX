@@ -15,8 +15,9 @@ dependencies {
     compileOnly(project(":BasePlugin"))
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     implementation("org.jetbrains:annotations:13.0")
-    compileOnly("org.dynmap:dynmap:2.0") {
+    compileOnly("us.dynmap:dynmap-api:3.1") {
         exclude("org.bukkit")
+        exclude("org.bstats")
         exclude("com.nijikokun.bukkit")
         exclude("de.bananaco")
         exclude("org.anjocaido")
@@ -33,12 +34,12 @@ tasks {
         targetCompatibility = "1.8"
     }
 
-
     val shadowJar = named<ShadowJar>("shadowJar") {
         mergeServiceFiles()
         minimize()
         val shadePath = "net.prosavage.factionsx.shade"
         relocate("kotlin", "$shadePath.kotlin")
+        relocate("org.jetbrains.annotations", "$shadePath.jetbrains-annotations")
         archiveFileName.set("FDynmap-Addon-${project.version}.jar")
     }
 }

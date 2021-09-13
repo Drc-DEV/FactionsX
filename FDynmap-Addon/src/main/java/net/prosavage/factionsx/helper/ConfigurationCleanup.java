@@ -1,8 +1,8 @@
 package net.prosavage.factionsx.helper;
 
 import net.prosavage.baseplugin.serializer.Serializer;
-import net.prosavage.baseplugin.shade.javax.Nonnull;
 import net.prosavage.factionsx.addonframework.Addon;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -27,7 +27,7 @@ public final class ConfigurationCleanup {
     public static <T> void loadBySerializer(
             final Addon addon,
             final boolean isData,
-            @Nonnull final Class<T> configurationClass
+            @NotNull final Class<T> configurationClass
     ) {
         final Serializer serializer = isData ? addon.getDataSerializer() : addon.getConfigSerializer();
         serializer.load(getInstance(configurationClass), configurationClass, getPath(addon, configurationClass));
@@ -43,7 +43,7 @@ public final class ConfigurationCleanup {
     public static <T> void saveBySerializer(
             final Addon addon,
             final boolean isData,
-            @Nonnull final Class<T> configurationClass
+            @NotNull final Class<T> configurationClass
     ) {
         final Serializer serializer = isData ? addon.getDataSerializer() : addon.getConfigSerializer();
         serializer.save(getInstance(configurationClass), getPath(addon, configurationClass));

@@ -2,9 +2,7 @@ package net.prosavage.factionsx.manager
 
 import com.cryptomorin.xseries.messages.Titles
 import io.papermc.lib.PaperLib
-import me.oliwer.bossbarav.BossBarWorker
 import net.prosavage.factionsx.FactionsX
-import net.prosavage.factionsx.FactionsX.Companion.bossBarController
 import net.prosavage.factionsx.core.Faction
 import net.prosavage.factionsx.event.FPlayerTerritoryChangeEvent
 import net.prosavage.factionsx.manager.PlaceholderManager.processPlaceholders
@@ -60,14 +58,6 @@ class PositionMonitor : Runnable {
                     }
                     // Use else if to prevent sending faction update message when using autoclaim.
                     else if (factionAt != lastFactionAt) {
-                        if (Config.positionMonitorChunkChangedBossBar) {
-                            fPlayer.lastLocation?.let { bossBarController.expose(player, it.chunk) }
-                            bossBarController.lookupOrInsert(location.chunk, BossBarWorker.create(
-                                location.world,
-                                100f,
-                                multiColor(processPlaceholders(fPlayer, factionAt, Config.positionMonitorChunkChangedBossBarMessage))
-                            )).show(player)
-                        }
 
                         val chunkMessageInWorld = !Config.worldsNoChunkMessageHandling.contains(location.world?.name)
                         if (Config.positionMonitorChunkChangedMessage && fPlayer.enabledChunkMessage && chunkMessageInWorld) {
