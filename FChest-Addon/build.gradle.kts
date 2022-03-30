@@ -14,10 +14,10 @@ dependencies {
     }
     compileOnly(project(":AddonFramework"))
     compileOnly(project(":BasePlugin"))
-    compileOnly("io.papermc:paperlib:1.0.2")
-    compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
-    compileOnly("com.github.cryptomorin:XSeries:8.1.0")
-    compileOnly(kotlin("stdlib-jdk8"))
+    compileOnly("io.papermc:paperlib:1.0.7")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("com.github.cryptomorin:XSeries:8.7.0")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
 }
 
 

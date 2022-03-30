@@ -153,7 +153,7 @@ fun Faction.isActionsWhenOfflineCompatible(actionsWhenOffline: ProtectionConfig.
     return !this.isSystemFaction()
             && this.getOnlineMembers().isEmpty()
             && actionsWhenOffline.enabled
-            && System.currentTimeMillis() >= (this.getMembers().maxBy { it.timeAtLastLogin }?.timeAtLastLogin ?: 0).plus(actionsWhenOffline.hasBeenOfflineForSeconds * 1000)
+            && System.currentTimeMillis() >= (this.getMembers().maxByOrNull { it.timeAtLastLogin }?.timeAtLastLogin ?: 0).plus(actionsWhenOffline.hasBeenOfflineForSeconds * 1000)
 }
 
 fun Material.isAnyAir(): Boolean = when (XMaterial.matchXMaterial(this)) {

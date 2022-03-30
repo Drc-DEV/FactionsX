@@ -15,7 +15,6 @@ import net.prosavage.factionsx.documentation.FactionsXDocumentationProvider
 import net.prosavage.factionsx.hook.EssentialsHook
 import net.prosavage.factionsx.hook.PlaceholderAPIIntegration
 import net.prosavage.factionsx.hook.ShopGUIPlusHook
-import net.prosavage.factionsx.hook.combatlog.CombatLogHook
 import net.prosavage.factionsx.hook.vault.VaultHook
 import net.prosavage.factionsx.listener.*
 import net.prosavage.factionsx.manager.*
@@ -27,25 +26,17 @@ import net.prosavage.factionsx.persist.data.Factions
 import net.prosavage.factionsx.persist.data.Grid
 import net.prosavage.factionsx.persist.data.Players
 import net.prosavage.factionsx.scoreboard.Scoreboard
-import net.prosavage.factionsx.scoreboard.implementations.FeatherBoard
 import net.prosavage.factionsx.scoreboard.implementations.InternalBoard
 import net.prosavage.factionsx.scoreboard.startScoreboardMonitor
 import net.prosavage.factionsx.upgrade.UpgradeScope
 import net.prosavage.factionsx.util.Migration
 import net.prosavage.factionsx.util.logColored
-import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.getPluginManager
-import org.bukkit.Chunk
 import org.bukkit.scheduler.BukkitTask
 import java.io.File
 import java.util.*
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 
 class FactionsX : SavagePlugin() {
 
@@ -75,55 +66,48 @@ class FactionsX : SavagePlugin() {
         }
     }
 
-    @ExperimentalTime
     override fun onEnable() {
         instance = this
         super.onEnable()
         FactionsX.logger = super.getLogger()
         logColored("&6================================================")
-        val startupTime = measureTime {
-            printLogo()
-            ConfigFileManager.setup()
-            val dataLoad = measureTime { loadData() }
-            logColored("Loaded Data & Configuration files in &6$dataLoad&7.")
-            with (Migration) {
-                migrateFactions()
-                migratePlayers()
-            }
-            logColored("Migrated Applicable Data.")
-            registerAllPermissions(getPluginManager())
-            logColored("Registered all permissions.")
-            baseCommand = setupCommand()
-            baseAdminCommand = setupAdminCommands()
-            logColored("Setup factions commands.")
-            registerListeners(DataListener(), PlayerListener(), ChatListener(), MiscListener(), FactionListener)
-            logColored("Registered Factions Listeners.")
-            startPositionMonitor()
-            logColored("Started Position Monitor")
-            startInventoryManager()
-            scoreboard = fetchScoreboard()
-            logColored("Scoreboard Running (${if (Config.scoreboardOptions.enabled) "Enabled" else "Disabled"}): ${scoreboard?.type ?: "None"}")
-            startScoreboardMonitor(scoreboard)
-            logColored("Started Scoreboard Monitor")
-            enableMetrics()
-            logColored("Enabled Metrics.")
-            loadHooks()
-            logColored("Loaded all plugin hooks.")
-            startAddonManager()
-            logColored("Started Addon Manager.")
-            baseCommand.initializeSubCommandData()
-            baseAdminCommand.initializeSubCommandData()
-            logColored("Initialized Command Data")
-            registerUpgrades()
-            logColored("Registered Upgrades.")
-            logColored("Total Upgrades: &6${UpgradeManager.getTotalUpgrades()}&r.")
-            logColored("    &aTerritory Upgrades: &r${UpgradeManager.getUpgrades(UpgradeScope.TERRITORY).size}")
-            logColored("    &bGlobal Upgrades: &r${UpgradeManager.getUpgrades(UpgradeScope.GLOBAL).size}")
-            startSaveTask()
-            logColored("Started autosave task.")
-            TimerManager.startMonitoring()
+        printLogo()
+        ConfigFileManager.setup()
+        logColored("Loaded Data & Configuration files&7.")
+        with(Migration) {
+            migrateFactions()
+            migratePlayers()
         }
-        logColored("Startup Completed In &6$startupTime&7.")
+        logColored("Migrated Applicable Data.")
+        registerAllPermissions(getPluginManager())
+        logColored("Registered all permissions.")
+        baseCommand = setupCommand()
+        baseAdminCommand = setupAdminCommands()
+        logColored("Setup factions commands.")
+        registerListeners(DataListener(), PlayerListener(), ChatListener(), MiscListener(), FactionListener)
+        logColored("Registered Factions Listeners.")
+        startPositionMonitor()
+        logColored("Started Position Monitor")
+        startInventoryManager()
+        scoreboard = fetchScoreboard()
+        logColored("Scoreboard Running (${if (Config.scoreboardOptions.enabled) "Enabled" else "Disabled"}): ${scoreboard?.type ?: "None"}")
+        startScoreboardMonitor(scoreboard)
+        logColored("Started Scoreboard Monitor")
+        loadHooks()
+        logColored("Loaded all plugin hooks.")
+        startAddonManager()
+        logColored("Started Addon Manager.")
+        baseCommand.initializeSubCommandData()
+        baseAdminCommand.initializeSubCommandData()
+        logColored("Initialized Command Data")
+        registerUpgrades()
+        logColored("Registered Upgrades.")
+        logColored("Total Upgrades: &6${UpgradeManager.getTotalUpgrades()}&r.")
+        logColored("    &aTerritory Upgrades: &r${UpgradeManager.getUpgrades(UpgradeScope.TERRITORY).size}")
+        logColored("    &bGlobal Upgrades: &r${UpgradeManager.getUpgrades(UpgradeScope.GLOBAL).size}")
+        startSaveTask()
+        logColored("Started autosave task.")
+        logColored("Startup Completed.")
         logColored("&6================================================")
     }
 
@@ -136,20 +120,20 @@ class FactionsX : SavagePlugin() {
     }
 
     private fun registerAutoSaveTask(taskID: String) {
-        TimerManager.registerTimeTask(taskID, TimeTask(Date(Date().time + Config.autoSaveIntervalInMilliseconds), Runnable {
-            if (Config.autoSaveBroadcast) Bukkit.broadcastMessage(color(Config.autoSaveBroadcastMessage))
-            GlobalScope.launch {
-                saveData()
-                if (Config.autoSaveBroadcastComplete) Bukkit.broadcastMessage(color(Config.autoSaveBroadcastCompleteMessage))
-            }
-            registerAutoSaveTask(taskID)
-        }))
+        TimerManager.registerTimeTask(
+            taskID,
+            TimeTask(Date(Date().time + Config.autoSaveIntervalInMilliseconds), Runnable {
+                if (Config.autoSaveBroadcast) Bukkit.broadcastMessage(color(Config.autoSaveBroadcastMessage))
+                GlobalScope.launch {
+                    saveData()
+                    if (Config.autoSaveBroadcastComplete) Bukkit.broadcastMessage(color(Config.autoSaveBroadcastCompleteMessage))
+                }
+                registerAutoSaveTask(taskID)
+            })
+        )
     }
 
     private fun fetchScoreboard(): Scoreboard? = when {
-        with(getPluginManager().getPlugin("FeatherBoard")) {
-            this != null && this.isEnabled
-        } -> FeatherBoard()
         Config.scoreboardOptions.internal -> InternalBoard()
         else -> null
     }
@@ -179,10 +163,6 @@ class FactionsX : SavagePlugin() {
         // load documentation provider if present
         FactionsXDocumentationProvider().generateDocs()
         logColored("Registered Documentation Provider.")
-        CombatLogHook.attemptLoad()?.also {
-            CombatLogHook.instance = it
-            logColored("Loaded ${it.name} as CombatLog Hook.")
-        }
     }
 
     private fun startAddonManager() {
@@ -210,13 +190,6 @@ class FactionsX : SavagePlugin() {
             PlaceholderAPIIntegration().register()
             isPlaceholderApi = true
         }
-    }
-
-    private fun enableMetrics() {
-        val pluginID = 6967
-        val metrics = Metrics(this, pluginID)
-
-        metrics.addCustomChart(Metrics.SingleLineChart("factions", Callable { FactionManager.getFactions().size }))
     }
 
     fun startPositionMonitor(): BukkitTask = Bukkit.getScheduler().runTaskTimer(this, PositionMonitor(), 0L, 5L)
@@ -264,8 +237,7 @@ class FactionsX : SavagePlugin() {
 
     private fun printLogo() {
         logColored("&l&6FactionsX")
-        logColored("By: ProSavage and SavageLabs Team.")
-        logColored("&9https://savagelabs.net")
+        logColored("&9https://github.com/Drc-DEV/FactionsX")
     }
 
 

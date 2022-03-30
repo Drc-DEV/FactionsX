@@ -73,7 +73,7 @@ object Migration {
             }
 
             val roles = faction.factionRoles
-            val highestRoleMember = members.maxWith(Comparator { m1, m2 ->
+            val highestRoleMember = members.maxWithOrNull(Comparator { m1, m2 ->
                 val firstRole = m1.role
                 val secondRole = m2.role
 

@@ -13,8 +13,8 @@ dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
     compileOnly(project(":BasePlugin"))
-    compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
-    implementation("org.jetbrains:annotations:13.0")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
+    implementation("org.jetbrains:annotations:23.0.0")
     compileOnly("us.dynmap:dynmap-api:3.1") {
         exclude("org.bukkit")
         exclude("org.bstats")
@@ -28,11 +28,6 @@ dependencies {
 }
 
 tasks {
-
-    compileJava {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
-    }
 
     val shadowJar = named<ShadowJar>("shadowJar") {
         mergeServiceFiles()

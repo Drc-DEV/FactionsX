@@ -6,7 +6,6 @@ import net.prosavage.factionsx.command.engine.FCommand
 import net.prosavage.factionsx.core.Permission
 import net.prosavage.factionsx.persist.Message
 import net.prosavage.factionsx.util.MemberAction
-import kotlin.time.ExperimentalTime
 
 class CmdFly : FCommand() {
     init {
@@ -18,7 +17,6 @@ class CmdFly : FCommand() {
                 .build()
     }
 
-    @ExperimentalTime
     override fun execute(info: CommandInfo): Boolean {
         val fPlayer = info.fPlayer!!
 

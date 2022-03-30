@@ -10,18 +10,14 @@ dependencies {
     compileOnly(project(":FactionsX"))
     compileOnly(project(":AddonFramework"))
     compileOnly(project(":BasePlugin"))
-    compileOnly(kotlin("stdlib-jdk8"))
-    compileOnly("com.github.cryptomorin:XSeries:8.4.0")
-    compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
+    compileOnly("com.github.cryptomorin:XSeries:8.7.0")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
 }
 
 
 tasks {
 
-    compileKotlin {
-        kotlinOptions { jvmTarget = "1.8" }
-        sourceCompatibility = "1.8"
-    }
     val shadowJar = named<ShadowJar>("shadowJar") {
         mergeServiceFiles()
         minimize()

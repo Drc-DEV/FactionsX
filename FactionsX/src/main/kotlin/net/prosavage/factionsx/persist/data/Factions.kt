@@ -90,7 +90,7 @@ object Factions {
 
             // has claimed once
             if (!factionObject.has("hasClaimedOnce")) {
-                factionObject.add("hasClaimedOnce", JsonPrimitive(Grid.claimGrid.keys.contains(factionId)))
+                factionObject.add("hasClaimedOnce", JsonPrimitive(Grid.claimGrid.containsValue(factionId.toLong())))
                 didModifyFaction = true
             }
 

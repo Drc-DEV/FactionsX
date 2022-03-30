@@ -7,24 +7,14 @@ allprojects {
 
 plugins {
     java
-    kotlin("jvm") version "1.4.21"
-    id("com.github.johnrengelman.shadow") version "5.2.0"
+    kotlin("jvm") version "1.6.10"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 val serverPluginDirectory: String by project
 
 
 tasks {
-
-    // This is for the CI
-    register("setCIVersion") {
-        doFirst {
-            val teamcity: Map<*, *> by project
-            version = "dev-#${teamcity["teamcity.build.id"]}"
-            println("Set version to $version")
-        }
-    }
-
 
     val copyToRoot = register("copyToRoot") {
         doLast {
@@ -85,38 +75,6 @@ tasks {
             zipTo(File("${buildDir}/release/FactionsX-Release-${project.version}.zip"), File(releasePath))
         }
     }
-
-
-
-    register("copyToServer") {
-        dependsOn(copyToRoot)
-        doLast {
-            if (project.hasProperty("serverPluginDirectory").not()) {
-                println(
-                    "No serverPluginDirectory argument found, ex: \n" +
-                            "gradle shadowJar copyToServer -PserverPluginDirectory=~/Documents/mc-server/plugins/"
-                )
-                return@doLast
-            }
-            println("copying $serverPluginDirectory")
-            // Copy the plugins.
-            copy {
-                from("$buildDir/libs/")
-                into(serverPluginDirectory)
-                include("*.jar")
-                exclude("${project.name}-$version-all.jar", "*-Addon-$version.jar")
-            }
-
-            // Copy the addons.
-            copy {
-                from("$buildDir/libs/")
-                into("$serverPluginDirectory/FactionsX/addons")
-                include("*-Addon-$version.jar")
-                exclude("${project.name}-$version-all.jar")
-            }
-
-        }
-    }
 }
 
 subprojects {
@@ -144,7 +102,7 @@ subprojects {
 
         maven("https://ci.ender.zone/plugin/repository/everything/")
 
-//        maven("https://mavenrepo.cubekrowd.net/artifactory/repo/")
+        maven("https://rayzr.dev/repo/")
 
         maven("https://maven.enginehub.org/repo/")
 

@@ -104,11 +104,11 @@ class FactionRoles(var roleHierarchy: HashMap<Int, CustomRole>) {
     }
 
     fun getApexRole(): CustomRole {
-        return roleHierarchy.getValue(roleHierarchy.keys.max()!!)
+        return roleHierarchy.getValue(roleHierarchy.keys.maxOrNull()!!)
     }
 
     fun getMinimumRole(): CustomRole {
-        return roleHierarchy.getValue(roleHierarchy.keys.min()!!)
+        return roleHierarchy.getValue(roleHierarchy.keys.minOrNull()!!)
     }
 
     private fun organize() {

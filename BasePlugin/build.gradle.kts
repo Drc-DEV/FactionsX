@@ -6,22 +6,16 @@ plugins {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
 
-    implementation("com.github.cryptomorin:XSeries:8.4.0")
+    implementation("com.github.cryptomorin:XSeries:8.7.0")
     implementation("fr.mrmicky:FastParticles:v2.0.0")
-    implementation("org.apache.commons:commons-lang3:3.9")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.code.gson:gson:2.9.0")
 }
 
 tasks {
-
-    compileJava {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
-    }
-
     getByName<Jar>("jar") {
         archiveFileName.set("BasePlugin-${project.version}.jar")
     }
